@@ -19,13 +19,21 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            AudioManager.instance.Play("Wing");
             //rb.AddForce(new Vector2(0, strength), ForceMode2D.Impulse);
             rb.velocity = Vector2.up * strength;
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
+    private void OnCollisionEnter2D(Collision2D coll)
     {
-        GameManager.Instance.OnGameOver();
+        if (coll.gameObject.CompareTag("Pipes") || coll.gameObject.CompareTag("Sciana"))
+        {
+            GameManager.Instance.OnGameOver();
+            AudioManager.instance.Play("GameOver");
+        }
+   
+
     }
+
 }
